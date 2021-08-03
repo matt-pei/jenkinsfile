@@ -1,3 +1,3 @@
 # jenkinslib
 
->> Jenkins share library
+> Jenkins share library
