@@ -19,7 +19,7 @@ pipeline{
             steps { // 步骤
                 timeout{time: 3, unit: 'MINUTES'}
                 script{
-                    println('拉取代码')
+                    println("拉取代码")
                     println("${test}")
 
                     input id: 'Test', message: '是否继续?', ok: '继续', parameters: [choice(choices: ['a', 'b'], description: '', name: 'test1')], submitter: 'matt.pei'
