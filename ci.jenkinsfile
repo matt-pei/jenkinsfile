@@ -2,11 +2,11 @@
 
 @Library("jenkinslib") _
 
-String workspace = "/app/.jenkins/workspace"
-
-def tool = new org.devops.tools()
+// func from shareibrary
 def email = new org.devops.emial()
+def tools = new org.devops.tools()
 
+// variable
 String srcUrl = "${env.srcUrl}"
 String branchName = "${env.branchName}"
 
@@ -18,6 +18,7 @@ pipeline{
         stage('CheckOut'){  // 阶段
             steps { // 步骤
                 script{
+                    tools.PrintMes("拉取代码",green)
                     checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]], extensions: [], userRemoteConfigs: [[credentialsId: 'c8c24f9c-bd31-437f-996b-503180bd14dc', url: "${srcUrl}"]]])
                 }
             }
@@ -26,6 +27,7 @@ pipeline{
         stage('Build'){
             setps{
                 script{
+                    tools.PrintMes("执行构建",green)
                     build.Build(buildType.buildShell)
                     deploy.SaltDeploy("${deployHosts}","test.ping")
                     deploy.AnsibleDeploy("${deployHosts}","-m ping")
