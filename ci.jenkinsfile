@@ -36,12 +36,10 @@ pipeline{
         // 代码扫描
         stage('CodeScan'){
             setps{
-                timeout(time: 2, unit: 'MINUT'){
-                    script{
-                        println("代码扫描")
-                        // tools.PrintMes("代码扫描")
-                        tools.PrintMes("代码扫描",'green')
-                    }
+                script{
+                    println("代码扫描")
+                    // tools.PrintMes("代码扫描")
+                    tools.PrintMes("代码扫描",'green')
                 }
             }
         }
