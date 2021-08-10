@@ -18,6 +18,12 @@ pipeline{
         stage('CheckOut'){  // 阶段
             steps { // 步骤
                 script{
+                    // 自动获取分支
+                    if ("${runOps}" == "GitlabPush"){
+                        brachName = branch - "refs/heads/"
+                    }
+                    println("${branchName}")
+                    
                     tools.PrintMes("拉取代码",green)
                     checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]], extensions: [], userRemoteConfigs: [[credentialsId: 'c8c24f9c-bd31-437f-996b-503180bd14dc', url: "${srcUrl}"]]])
                 }
@@ -29,7 +35,7 @@ pipeline{
                 script{
                     tools.PrintMes("执行构建",green)
                     build.Build(buildType.buildShell)
-                    deploy.SaltDeploy("${deployHosts}","test.ping")
+                    // deploy.SaltDeploy("${deployHosts}","test.ping")
                     deploy.AnsibleDeploy("${deployHosts}","-m ping")
                 }
             }
