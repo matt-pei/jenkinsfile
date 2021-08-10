@@ -23,7 +23,7 @@ pipeline{
                         brachName = branch - "refs/heads/"
                     }
                     println("${branchName}")
-                    
+
                     tools.PrintMes("拉取代码",green)
                     checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]], extensions: [], userRemoteConfigs: [[credentialsId: 'c8c24f9c-bd31-437f-996b-503180bd14dc', url: "${srcUrl}"]]])
                 }
@@ -71,7 +71,7 @@ pipeline{
         failure {
             script {
                 currentBuild.description = "\n 构建失败"
-                emial.Email("流水失败",userEmail)
+                emial.Email("构建失败",userEmail)
             }
         }
 
