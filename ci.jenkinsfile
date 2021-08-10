@@ -3,10 +3,13 @@
 @Library("jenkinslib") _
 
 // func from shareibrary
+// def build = new org.devops.build()
 def email = new org.devops.emial()
 def tools = new org.devops.tools()
 
 // variable
+// String buildType = "${env.buildType}"
+// String buildShell = "${env.buildShell}"
 String srcUrl = "${env.srcUrl}"
 String branchName = "${env.branchName}"
 
@@ -14,7 +17,6 @@ pipeline{
     agent { node { label "master" }}
 
     stages {
-        // 拉取代码
         stage('CheckOut'){  // 阶段
             steps { // 步骤
                 script{
@@ -33,6 +35,7 @@ pipeline{
         stage('Build'){
             setps{
                 script{
+                    // build.Build(buildType,buildShell)    //整合构建工具
                     tools.PrintMes("执行构建",green)
                     build.Build(buildType.buildShell)
                     // deploy.SaltDeploy("${deployHosts}","test.ping")
