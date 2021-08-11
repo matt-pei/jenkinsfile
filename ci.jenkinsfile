@@ -1,15 +1,17 @@
 #!groovy
 
-@Library("jenkinslib") _
+@Library('jenkinslib@main') _
 
 // func from shareibrary
 // def build = new org.devops.build()
+def deploy = new org.devops.deploy()
 def email = new org.devops.emial()
 def tools = new org.devops.tools()
 
 // variable
 // String buildType = "${env.buildType}"
 // String buildShell = "${env.buildShell}"
+String deployhost = "${env.deployHost}"
 String srcUrl = "${env.srcUrl}"
 String branchName = "${env.branchName}"
 
@@ -38,8 +40,8 @@ pipeline{
                     // build.Build(buildType,buildShell)    //整合构建工具
                     tools.PrintMes("执行构建",green)
                     build.Build(buildType.buildShell)
-                    // deploy.SaltDeploy("${deployHosts}","test.ping")
-                    deploy.AnsibleDeploy("${deployHosts}","-m ping")
+                    // deploy.SaltDeploy("${deployHost}","test.ping")
+                    deploy.AnsibleDeploy("${deployHost}","-m ping")
                 }
             }
         }
